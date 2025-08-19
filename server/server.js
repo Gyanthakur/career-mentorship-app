@@ -1,18 +1,42 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const cors = require('cors');
-require('dotenv').config();
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import connectDb from "./config/mongodb.js";
+import connectCloudinary from "./config/cloudinary.js";
+import studentRouter from "./routes/studentRoutes.js";
 
+
+// app config
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-// Example route
+const port = process.env.PORT || 4000;
+connectDb()
+connectCloudinary()
+
+// Middlewares
+
+app.use(express.json());
+app.use(cors());
+
+
+
+// api end points
+// app.use('/api/admin',adminRouter);
+// app.use('/api/doctor',doctorRouter)
+app.use('/api/student',studentRouter)
+
+// Default Route
 app.get('/', (req, res) => {
-  res.send('Career mentorship plateform app working fine....');
+  res.send('Career Mentorship Platform App working fine....');
 });
 
-// Connect DB and start server
-connectDB();
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(port,()=>{
+    console.log('Server started on port',port);
+})
+
+
+
+
+
+
+
