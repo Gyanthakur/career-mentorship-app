@@ -1,16 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Load saved dark mode from localStorage on app start
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
 
   return (
-   <div>
-    <h1 className='text-green-500 bg-red-200'>gyan</h1>
-   </div>
-  )
+    <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-black min-h-screen"}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+
+      <Routes>
+        <Route path="/" element={<Home darkMode={darkMode} />} />
+        <Route path="/login" element={<Login darkMode={darkMode} />} />
+        <Route path="/signup" element={<Signup darkMode={darkMode} />} />
+        <Route path="/my-profile" element={<MyProfile darkMode={darkMode} />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
