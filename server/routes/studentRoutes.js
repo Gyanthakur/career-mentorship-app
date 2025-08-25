@@ -4,7 +4,7 @@ import upload from '../middleware/multer.js';
 import authStudent from '../middleware/authStudents.js';
 const studentRouter = exprex.Router();
 
-studentRouter.post('/register',registerStudent)
+studentRouter.post('/signup',registerStudent)
 studentRouter.post('/login',LoginStudent)
 
 studentRouter.get('/get-profile',authStudent,getprofile)

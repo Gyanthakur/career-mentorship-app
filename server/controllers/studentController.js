@@ -92,7 +92,8 @@ const getprofile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
 	try {
-		const { studentId, name, phone, dob, gender } = req.body;
+		const studentId = req.user.studentId;
+		const {  name, phone, dob, gender } = req.body;
 		const imageFile = req.file;
         console.log(req.body);
         
