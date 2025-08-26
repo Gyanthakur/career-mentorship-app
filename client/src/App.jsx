@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyProfile from "./pages/MyProfile";
+import Footer from "./components/Footer";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,6 +29,8 @@ function App() {
         <Route path="/signup" element={<Signup darkMode={darkMode} />} />
         <Route path="/my-profile" element={<MyProfile darkMode={darkMode} />} />
       </Routes>
+
+      <Footer darkMode={darkMode} />
     </div>
   );
 }
