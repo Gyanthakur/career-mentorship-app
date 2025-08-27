@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyProfile from "./pages/MyProfile";
 import Footer from "./components/Footer";
+import RoadmapPage from "./roadmap/page";
+import RoadmapDetails from "./roadmap/[id]/page";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -22,13 +24,14 @@ function App() {
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-black min-h-screen"}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <div className="min-h-screen pt-20 mb-5">
+      <div className="min-h-screen pt-">
         
       <Routes>
         <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path="/login" element={<Login darkMode={darkMode} />} />
         <Route path="/signup" element={<Signup darkMode={darkMode} />} />
         <Route path="/my-profile" element={<MyProfile darkMode={darkMode} />} />
+        <Route path="/roadmap/:id" element={<RoadmapDetails darkMode={darkMode} />} />
       </Routes>
 
       </div>
