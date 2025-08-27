@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
+  
   const navigate = useNavigate();
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken, backendUrl } = useContext(AppContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,8 +27,8 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/student/login",
+      const response = await axios.post( backendUrl +
+        "/api/student/login",
         formData
       );
       if (response.data.success) {
