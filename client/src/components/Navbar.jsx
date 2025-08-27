@@ -133,27 +133,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 								</NavLink>
 							</>
 						) : (
-							// <button
-							//   onClick={handleLogout}
-							//   className="px-3 py-2 rounded-md text-sm font-medium text-red-500 hover:text-red-700"
-							// >
-							//   Logout
-							// </button>
-
-							//   <div className="flex items-center space-x-4">
-							//   <button
-							//     onClick={handleLogout}
-							//     className="bg-red-500 text-white px-4 py-2 rounded-lg"
-							//   >
-							//     Logout
-							//   </button>
-							//   <img
-							//     src={studentData?.image || defaultAvatar}
-							//     alt="profile"
-							//     className="w-10 h-10 rounded-full object-cover "
-							//   />
-							// </div>
-
 							<div
 								className="flex items-center space-x-4 relative"
 								ref={dropdownRef}
@@ -256,27 +235,39 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 							</NavLink>
 						</>
 					) : (
-						// <button
-						//   onClick={() => {
-						//     handleLogout();
-						//     handleNavClick();
-						//   }}
-						//   className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-500 hover:text-red-700"
-						// >
-						//   Logout
-						// </button>
-						<div className="flex items-center space-x-4">
-							<button
-								onClick={handleLogout}
-								className="bg-red-500 text-white px-4 py-2 rounded-lg"
-							>
-								Logout
-							</button>
+						<div
+							className="flex items-center space-x-4 relative"
+							ref={dropdownRef}
+						>
+							{/* Profile Image */}
 							<img
 								src={studentData?.image || defaultAvatar}
 								alt="profile"
-								className="w-10 h-10 rounded-full object-cover"
+								className="w-10 h-10 rounded-full object-cover cursor-pointer"
+								onClick={() => setDropdownOpen(!dropdownOpen)}
 							/>
+
+							
+							{dropdownOpen && (
+								<div className="absolute right-0 top-12 w-40 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700 py-2">
+									<NavLink
+										to="/my-profile"
+										className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+										onClick={() => setDropdownOpen(false)}
+									>
+										My Profile
+									</NavLink>
+									<button
+										onClick={() => {
+											handleLogout();
+											setDropdownOpen(false);
+										}}
+										className="block w-full text-left px-4 py-2 text-red-500 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+									>
+										Logout
+									</button>
+								</div>
+							)}
 						</div>
 					)}
 

@@ -22,7 +22,8 @@ function App() {
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-black min-h-screen"}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-
+      <div className="min-h-screen pt-20 mb-5">
+        
       <Routes>
         <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path="/login" element={<Login darkMode={darkMode} />} />
@@ -30,6 +31,7 @@ function App() {
         <Route path="/my-profile" element={<MyProfile darkMode={darkMode} />} />
       </Routes>
 
+      </div>
       <Footer darkMode={darkMode} />
     </div>
   );

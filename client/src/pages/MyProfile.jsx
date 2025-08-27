@@ -58,7 +58,7 @@ const MyProfile = () => {
   if (!studentData) return null;
 
   return (
-    <div className="max-w-xl mx-auto flex flex-col gap-6 text-sm bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg pt-20 transition-all">
+    <div className="max-w-xl mx-auto flex flex-col gap-6 text-sm bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg pt-20 transition-all">
       {/* Profile Image */}
       <div className="flex flex-col items-center">
         {isEdit ? (
