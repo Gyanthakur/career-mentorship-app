@@ -75,7 +75,7 @@ const MyProfile = () => {
 	if (initialLoading || !studentData) return <Loader />;
 
 	return (
-		<div className="max-w-3xl mx-auto mt-5 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg transition-all">
+		<div className="max-w-3xl mx-auto mt-16 mb-5 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg transition-all">
 			<h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white px-4 py-2 rounded-lg shadow-sm ">
 				Your Profile Information
 			</h3>
