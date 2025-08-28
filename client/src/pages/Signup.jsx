@@ -81,8 +81,8 @@ const Signup = () => {
 		formData.password === formData.confirmPassword;
 
 	return (
-		<div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 to-pink-500 dark:from-gray-900 dark:to-gray-800 p-4 pt-24">
-			<div className="bg-white dark:bg-gray-900 shadow-lg rounded-2xl w-full max-w-md p-8">
+		<div className="flex items-center justify-center min-h-screen bg-whitedark:bg-gradient-to-r  dark:from-gray-900 dark:to-gray-800 p-4 pt-24">
+			<div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl w-full max-w-md p-8">
 				<h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
 					Sign Up
 				</h2>
