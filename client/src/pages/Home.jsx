@@ -15,7 +15,7 @@ const Home = () => {
       <ExpertsPlatform/>
       <ServicesPage/>
       <Skills/>
-      <SkillsPage/>
+      {/* <SkillsPage/> */}
       <RoadmapPage/>
       <Roadmap/>
     </div>
