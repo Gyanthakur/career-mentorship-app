@@ -4,6 +4,7 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -34,11 +35,14 @@ const Login = () => {
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+        toast.success("Login successful!");
       } else {
         setError(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (err) {
       setError("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
     setLoading(false);
   };

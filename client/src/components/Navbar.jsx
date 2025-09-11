@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { Menu, X, Sun, Moon } from "lucide-react"; // icons
+import { toast } from "react-toastify";
 
 const Navbar = ({ darkMode, setDarkMode }) => {
 	const { token, setToken, studentData } = useContext(AppContext);
@@ -38,7 +39,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 	// Logout
 	const handleLogout = () => {
 		setToken(null);
+		const name = studentData?.name || "User";
 		localStorage.removeItem("token");
+		toast.success(`${name} Logged out successfully! `);
 		navigate("/login");
 	};
 

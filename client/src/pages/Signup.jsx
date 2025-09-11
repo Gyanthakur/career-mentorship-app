@@ -5,6 +5,7 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -58,11 +59,15 @@ const Signup = () => {
 			if (response.data.success) {
 				setToken(response.data.token);
 				localStorage.setItem("token", response.data.token);
+				toast.success("Signup successful!");
+				navigate("/");
 			} else {
 				setError(response.data.message);
+				toast.error(response.data.message);
 			}
 		} catch (err) {
 			setError("Signup failed. Please try again.");
+			toast.error("Signup failed. Please try again.");
 		}
 		setLoading(false);
 	};
