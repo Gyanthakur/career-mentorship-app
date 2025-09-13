@@ -1,8 +1,10 @@
 <div align="center">
   <img src="https://github.com/user-attachments/assets/a83b3fb4-dcb4-42d7-b8d5-142f0ea3586c" 
        alt="logo1" 
-       style="max-width: 100%; height: auto;" />
+       width="400" 
+       height="400" />
 </div>
+
 
 # 🚀 Career Mentorship Platform
 
