@@ -107,6 +107,7 @@
 // export default Header;
 
 import React from "react";
+import { Typewriter } from "react-simple-typewriter";
 
 const Header = () => {
   return (
@@ -156,6 +157,21 @@ const Header = () => {
 
       {/* Decorative gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10 dark:to-black/20 pointer-events-none"></div>
+
+      <div className="flex justify-center items-center mx-auto w-fit px-4 py-2 bg-green-400 dark:bg-green-500/70 text-pink-800 dark:text-gray-200 text-sm font-semibold rounded-full shadow-md backdrop-blur-sm text-center">
+  <h3>
+    <Typewriter
+      words={["Its on Development Mode"]}
+      loop={false}
+      cursor
+      cursorStyle="_"
+      typeSpeed={60}
+      deleteSpeed={50}
+      delaySpeed={1000}
+    />
+  </h3>
+</div>
+
     </div>
   );
 };
