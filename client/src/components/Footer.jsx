@@ -16,13 +16,13 @@ const Footer = () => {
   return (
     <>
     <hr className="opacity-[0.2]" />
-    <footer className="bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-300 py-10 px-6 md:px-20 shadow-md">
+    <footer className=" bg-gradient-to-br from-white via-blue-100 to-indigo-50 dark:from-gray-900 dark:via-gray-950 dark:to-black text-gray-900 dark:text-gray-100 py-10 px-6 md:px-20 shadow-md">
       
       {/* Top Section */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand Section */}
         <div>
-          <h2 className="text-2xl font-bold text-black dark:bg-gray-800 dark:text-gray-200">MentorMate</h2>
+          <h2 className="text-2xl font-bold text-black  dark:text-gray-200">Career Mentorship</h2>
           <p className="mt-3 text-gray-600 dark:text-gray-300">
             Empowering students & professionals through personalized career
             mentorship. Your growth, our mission.

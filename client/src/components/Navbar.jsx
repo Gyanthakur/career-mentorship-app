@@ -96,7 +96,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 					</div>
 
 					{/* Middle: Centered Logo */}
-					<NavLink to="/" className="flex-shrink-0">
+					<NavLink to="/" className="flex-shrink-0 ">
 						<img
 							src="/logo1.png"
 							alt="Logo"
@@ -198,7 +198,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 						</button>
 
 						{/* Mobile Menu Button */}
-						<div className="md:hidden flex items-center">
+						<div className="md:hidden flex items-center mr-5">
 							<button
 								onClick={() => setIsOpen(!isOpen)}
 								className="p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition"

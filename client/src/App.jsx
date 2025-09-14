@@ -23,8 +23,11 @@ function App() {
     }
   }, []);
 
+  // bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-950 dark:to-black text-gray-900 dark:text-gray-100
+
   return (
-    <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-black min-h-screen"}>
+    // <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-black min-h-screen"}>
+    <div className={darkMode ? "dark bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white min-h-screen" : "bg-gradient-to-br from-white via-blue-50 to-indigo-50 text-black min-h-screen"}>
       <ToastContainer />
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <div className="min-h-screen pt-">

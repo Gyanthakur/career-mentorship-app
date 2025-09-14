@@ -1,5 +1,3 @@
-
-
 "use client";
 import { useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
@@ -119,8 +117,12 @@ export default function CategoriesPage() {
 			{/* <h1 className="text-4xl md:text-5xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-400 drop-shadow-sm leading-tight">
 				🚀 Explore Categories
 			</h1> */}
-			<h1 className="text-4xl md:text-5xl text-center mb-10"> 🚀
-				<span className="text-4xl md:text-5xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-400 drop-shadow-sm leading">Explore Categories </span> 
+			<h1 className="text-4xl md:text-5xl text-center mb-10">
+				{" "}
+				🚀
+				<span className="text-4xl md:text-5xl font-bold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-400 drop-shadow-sm leading">
+					Explore Categories{" "}
+				</span>
 			</h1>
 
 			<div className="text-center max-w-3xl mx-auto mb-14">
@@ -169,6 +171,13 @@ export default function CategoriesPage() {
 						</div>
 					))}
 				</Marquee>
+			</div>
+			<div className="max-w-3xl mx-auto mt-10 text-center p-6 bg-gradient-to-r from-indigo-50 via-blue-50 to-teal-50 dark:from-gray-900 dark:via-gray-950 dark:to-black rounded-2xl shadow-md">
+				<p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+					Experts from diverse industries use our platform to build credibility,
+					expand their revenue streams, and connect meaningfully with clients
+					seeking guidance and mentorship.
+				</p>
 			</div>
 		</div>
 	);
