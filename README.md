@@ -23,27 +23,27 @@ client/
 ├── node_modules/
 ├── public/
 ├── src/
-│   ├── assets/          # Static assets (images, icons, etc.)
-│   ├── components/      # Reusable UI components
-│   ├── context/         # Context API for global state management
-│   ├── data/            # Static data files
-│   ├── hooks/           # Custom React hooks
-│   ├── pages/           # Main pages (About, Categories, etc.)
-│   ├── roadmap/         # Roadmap-related components and PDFs
-│   ├── routes/          # App routing
-│   ├── services/        # API calls and integrations
-│   ├── skills/          # Skills-specific components/data
-│   ├── App.jsx          # Root React component
-│   ├── index.css        # Global CSS (Tailwind setup)
-│   ├── main.jsx         # Entry point
-├── .env                 # Environment variables
+│   ├── assets/          
+│   ├── components/      
+│   ├── context/         
+│   ├── data/           
+│   ├── hooks/           
+│   ├── pages/           
+│   ├── roadmap/         
+│   ├── routes/          
+│   ├── services/        
+│   ├── skills/          
+│   ├── App.jsx          
+│   ├── index.css        
+│   ├── main.jsx         
+├── .env                 
 ├── .gitignore
-├── eslint.config.js     # ESLint config
-├── index.html           # Base HTML file
-├── package.json         # Frontend dependencies
-├── postcss.config.js    # PostCSS config
-├── tailwind.config.js   # TailwindCSS config
-├── vercel.json          # Vercel deployment config
+├── eslint.config.js     
+├── index.html           
+├── package.json         
+├── postcss.config.js   
+├── tailwind.config.js  
+├── vercel.json          
 ```
 
 ### Server (Backend)
@@ -51,28 +51,28 @@ client/
 ```
 server/
 ├── config/
-│   ├── cloudinary.js    # Cloudinary config for media uploads
-│   ├── mongodb.js       # MongoDB connection setup
+│   ├── cloudinary.js    
+│   ├── mongodb.js      
 ├── controllers/
-│   ├── authController.js    # Handles authentication logic
-│   ├── chatController.js    # Chat features
-│   ├── mentorController.js  # Mentor-related operations
-│   ├── studentController.js # Student-related operations
+│   ├── authController.js   
+│   ├── chatController.js    
+│   ├── mentorController.js  
+│   ├── studentController.js 
 ├── middleware/
-│   ├── authStudents.js  # Auth middleware for students
-│   ├── errorHandler.js  # Global error handler
-│   ├── multer.js        # File upload handling
-├── models/              # Database models (Users, Mentors, Students, etc.)
+│   ├── authStudents.js 
+│   ├── errorHandler.js  
+│   ├── multer.js        
+├── models/              
 ├── routes/
-│   ├── authRoutes.js    # Authentication routes
-│   ├── chatRoutes.js    # Chat routes
-│   ├── mentorRoutes.js  # Mentor routes
-│   ├── studentRoutes.js # Student routes
-├── utils/               # Helper utilities
-├── .env                 # Backend environment variables
-├── server.js            # Express app entry point
-├── package.json         # Backend dependencies
-├── vercel.json          # Backend deployment config
+│   ├── authRoutes.js    
+│   ├── chatRoutes.js    
+│   ├── mentorRoutes.js  
+│   ├── studentRoutes.js 
+├── utils/               
+├── .env                 
+├── server.js            
+├── package.json         
+├── vercel.json         
 ```
 
 ---
@@ -167,7 +167,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ```bash
 cd server
-npm run dev
+npm run server
 ```
 
 #### Start Frontend
