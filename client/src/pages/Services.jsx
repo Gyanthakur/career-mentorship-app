@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from "react";
+import  { useState } from "react";
 
 const services = [
   {
@@ -98,7 +98,7 @@ const ServicesPage = () => {
         <div className="hidden md:flex justify-center relative animate-fade-in">
           <div className="rounded-3xl overflow-hidden shadow-2xl glassmorphism px-6 py-2 flex flex-col items-center border-2 border-pink-200 dark:border-teal-400">
             <img
-              src={selected.image}
+              src={selected.image || services[1].image}
               alt={selected.title}
               width={370}
               height={300}
