@@ -1,4 +1,297 @@
 
+// import React, { useState, useEffect, useRef, useContext } from "react";
+// import axios from "axios";
+// import {
+//   FiCopy,
+//   FiCheck,
+//   FiX,
+//   FiMessageCircle,
+//   FiVolume2,
+//   FiVolumeX,
+//   FiMic,
+//   FiMicOff,
+// } from "react-icons/fi";
+// import { AppContext } from "../context/AppContext";
+// import { useNavigate } from "react-router-dom";
+
+// // Bold text rendering
+// function renderWithBold(str) {
+//   return str.split(/(\*\*[^*]+\*\*)/g).map((chunk, i) =>
+//     chunk.startsWith("**") && chunk.endsWith("**") ? (
+//       <strong key={i} className="font-bold">
+//         {chunk.slice(2, -2)}
+//       </strong>
+//     ) : (
+//       chunk
+//     )
+//   );
+// }
+
+// const ChatAi = () => {
+//   const { token, backendUrl } = useContext(AppContext);
+//   const navigate = useNavigate();
+
+//   const [open, setOpen] = useState(false);
+//   const [input, setInput] = useState("");
+//   const [messages, setMessages] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [copiedIdx, setCopiedIdx] = useState(-1);
+//   const [speakingIdx, setSpeakingIdx] = useState(-1);
+//   const [listening, setListening] = useState(false);
+
+//   const chatEndRef = useRef(null);
+//   const recognitionRef = useRef(null);
+
+//   // Load chat history
+//   useEffect(() => {
+//     const savedChats = localStorage.getItem("chatHistory");
+//     if (savedChats) setMessages(JSON.parse(savedChats));
+//   }, []);
+
+//   // Save chat history + scroll to bottom
+//   useEffect(() => {
+//     localStorage.setItem("chatHistory", JSON.stringify(messages));
+//     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+//   }, [messages]);
+
+//   const handleCopy = async (content, idx) => {
+//     try {
+//       await navigator.clipboard.writeText(content);
+//       setCopiedIdx(idx);
+//       setTimeout(() => setCopiedIdx(-1), 1400);
+//     } catch {}
+//   };
+
+//   const handleSend = async () => {
+//     if (!token) {
+//       navigate("/login"); // 🚀 redirect to login if not logged in
+//       return;
+//     }
+//     if (!input.trim()) return;
+
+//     const userMessage = { role: "user", content: input };
+//     setMessages((prev) => [...prev, userMessage]);
+//     setInput("");
+//     setLoading(true);
+
+//     try {
+//       const res = await axios.post(backendUrl + "/api/chat", {
+//         message: input,
+//       });
+//       const aiMessage = { role: "ai", content: res.data.reply };
+//       setMessages((prev) => [...prev, aiMessage]);
+//     } catch {
+//       setMessages((prev) => [
+//         ...prev,
+//         { role: "ai", content: "❌ Error: Unable to fetch AI response." },
+//       ]);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleKeyDown = (e) => {
+//     if (e.key === "Enter" && !e.shiftKey) {
+//       e.preventDefault();
+//       handleSend();
+//     }
+//   };
+
+//   // 🔊 Text-to-Speech for AI messages
+//   const handleSpeak = (text, idx) => {
+//     if (speakingIdx === idx) {
+//       window.speechSynthesis.cancel(); // stop speaking
+//       setSpeakingIdx(-1);
+//       return;
+//     }
+//     const utterance = new SpeechSynthesisUtterance(text);
+//     utterance.onend = () => setSpeakingIdx(-1);
+//     setSpeakingIdx(idx);
+//     window.speechSynthesis.speak(utterance);
+//   };
+
+//   // 🎤 Voice-to-Text for user input
+//   const handleVoiceInput = () => {
+//     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+//       alert("❌ Speech recognition is not supported in your browser.");
+//       return;
+//     }
+
+//     if (listening) {
+//       recognitionRef.current.stop();
+//       setListening(false);
+//       return;
+//     }
+
+//     const SpeechRecognition =
+//       window.SpeechRecognition || window.webkitSpeechRecognition;
+//     recognitionRef.current = new SpeechRecognition();
+//     recognitionRef.current.lang = "en-US";
+//     recognitionRef.current.interimResults = false;
+//     recognitionRef.current.maxAlternatives = 1;
+
+//     recognitionRef.current.onresult = (event) => {
+//       const transcript = event.results[0][0].transcript;
+//       setInput(transcript);
+//     };
+
+//     recognitionRef.current.onerror = (event) => {
+//       console.error("Speech recognition error:", event.error);
+//       setListening(false);
+//     };
+
+//     recognitionRef.current.onend = () => {
+//       setListening(false);
+//     };
+
+//     recognitionRef.current.start();
+//     setListening(true);
+//   };
+
+//   return (
+//     <>
+//       {/* Floating AI Chat button */}
+//       {!open && (
+//         <button
+//           onClick={() => setOpen(true)}
+//           className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2 bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-700 hover:to-indigo-700 transition"
+//         >
+//           <FiMessageCircle className="w-5 h-5" /> AI Chat
+//         </button>
+//       )}
+
+//       {/* Chat panel */}
+//       {open && (
+//         <div className="fixed top-0 right-0 h-[88%] mt-16 mb-4 w-[380px] md:w-[420px] bg-gradient-to-br from-white via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-950 dark:to-black shadow-2xl z-50 flex flex-col rounded-l-2xl">
+//           {/* Header */}
+//           <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+//             <h2 className="text-xl font-bold text-blue-600 dark:text-indigo-400">
+//               💬 Chat with AI
+//             </h2>
+//             <button
+//               onClick={() => setOpen(false)}
+//               className="text-gray-500 hover:text-red-500 transition"
+//             >
+//               <FiX className="w-6 h-6" />
+//             </button>
+//           </div>
+
+//           {/* Messages */}
+//           <div className="flex-1 overflow-y-auto px-4 py-3">
+//             {messages.length === 0 && !loading && (
+//               <div className="text-gray-400 dark:text-gray-500 text-center italic select-none mt-10">
+//                 Start a conversation with the AI 🤖
+//               </div>
+//             )}
+//             {messages.map((msg, idx) => (
+//               <div
+//                 key={idx}
+//                 className={`flex ${
+//                   msg.role === "user" ? "justify-end" : "justify-start"
+//                 } mb-3`}
+//               >
+//                 <div
+//                   className={`relative p-3 rounded-2xl shadow max-w-[80%] whitespace-pre-line break-words text-sm ${
+//                     msg.role === "user"
+//                       ? "bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-br-md"
+//                       : "bg-white/90 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 rounded-bl-md border border-gray-100 dark:border-gray-700"
+//                   }`}
+//                 >
+					
+//                   {/* Copy button */}
+//                   <button
+//                     onClick={() => handleCopy(msg.content, idx)}
+//                     className="absolute top-2 right-3 text-xs text-gray-400 hover:text-blue-500"
+//                   >
+//                     {copiedIdx === idx ? <FiCheck /> : <FiCopy />}
+//                   </button>
+
+//                   {/* 🔊 Voice button only for AI responses */}
+//                   {msg.role === "ai" && (
+// 					<div className="h-1 w-1">
+//                     <button
+//                       onClick={() => handleSpeak(msg.content, idx)}
+//                       className="absolute  top-2 right-10 text-xs text-gray-400 hover:text-green-500"
+//                     >
+//                       {speakingIdx === idx ? <FiVolumeX /> : <FiVolume2 />}
+//                     </button>
+// 					</div>
+//                   )}
+
+//                   <span className="block text-xs opacity-60 mb-1 font-semibold">
+//                     {msg.role === "user" ? "You" : "AI"}
+//                   </span>
+//                   {renderWithBold(msg.content)}
+//                 </div>
+//               </div>
+//             ))}
+//             {loading && (
+//               <div className="flex justify-start">
+//                 <div className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-2 rounded-2xl shadow animate-pulse w-32 text-xs">
+//                   ⏳ AI is typing...
+//                 </div>
+//               </div>
+//             )}
+//             <div ref={chatEndRef}></div>
+//           </div>
+
+//           {/* Input */}
+//           <div className="p-3 border-t dark:border-gray-700 flex gap-2 items-center">
+//             <textarea
+//               rows={1}
+//               className="flex-1 resize-none p-2 bg-white/90 dark:bg-gray-800/80 border rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+//               placeholder="Ask me anything..."
+//               value={input}
+//               onChange={(e) => setInput(e.target.value)}
+//               onKeyDown={handleKeyDown}
+//               disabled={loading}
+//             />
+//             {/* 🎤 Mic button */}
+//             <button
+//               onClick={handleVoiceInput}
+//               className={`p-2 rounded-full shadow ${
+//                 listening
+//                   ? "bg-red-500 text-white"
+//                   : "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+//               }`}
+//               title="Speak your question"
+//             >
+//               {listening ? <FiMicOff /> : <FiMic />}
+//             </button>
+//             <button
+//               onClick={handleSend}
+//               disabled={loading || !input.trim()}
+//               className={`px-4 py-2 rounded-xl font-semibold transition shadow text-sm ${
+//                 loading || !input.trim()
+//                   ? "bg-gray-300 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
+//                   : "bg-gradient-to-tr from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+//               }`}
+//             >
+//               {loading ? "..." : "Send"}
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default ChatAi;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import {
@@ -14,11 +307,10 @@ import {
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
-// Bold text rendering
 function renderWithBold(str) {
   return str.split(/(\*\*[^*]+\*\*)/g).map((chunk, i) =>
     chunk.startsWith("**") && chunk.endsWith("**") ? (
-      <strong key={i} className="font-bold">
+      <strong key={i} className="font-bold text-blue-700 dark:text-blue-300">
         {chunk.slice(2, -2)}
       </strong>
     ) : (
@@ -38,17 +330,14 @@ const ChatAi = () => {
   const [copiedIdx, setCopiedIdx] = useState(-1);
   const [speakingIdx, setSpeakingIdx] = useState(-1);
   const [listening, setListening] = useState(false);
-
   const chatEndRef = useRef(null);
   const recognitionRef = useRef(null);
 
-  // Load chat history
   useEffect(() => {
     const savedChats = localStorage.getItem("chatHistory");
     if (savedChats) setMessages(JSON.parse(savedChats));
   }, []);
 
-  // Save chat history + scroll to bottom
   useEffect(() => {
     localStorage.setItem("chatHistory", JSON.stringify(messages));
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,7 +353,7 @@ const ChatAi = () => {
 
   const handleSend = async () => {
     if (!token) {
-      navigate("/login"); // 🚀 redirect to login if not logged in
+      navigate("/login");
       return;
     }
     if (!input.trim()) return;
@@ -75,9 +364,7 @@ const ChatAi = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(backendUrl + "/api/chat", {
-        message: input,
-      });
+      const res = await axios.post(backendUrl + "/api/chat", { message: input });
       const aiMessage = { role: "ai", content: res.data.reply };
       setMessages((prev) => [...prev, aiMessage]);
     } catch {
@@ -97,10 +384,9 @@ const ChatAi = () => {
     }
   };
 
-  // 🔊 Text-to-Speech for AI messages
   const handleSpeak = (text, idx) => {
     if (speakingIdx === idx) {
-      window.speechSynthesis.cancel(); // stop speaking
+      window.speechSynthesis.cancel();
       setSpeakingIdx(-1);
       return;
     }
@@ -110,19 +396,16 @@ const ChatAi = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  // 🎤 Voice-to-Text for user input
   const handleVoiceInput = () => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
       alert("❌ Speech recognition is not supported in your browser.");
       return;
     }
-
     if (listening) {
       recognitionRef.current.stop();
       setListening(false);
       return;
     }
-
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
@@ -134,52 +417,44 @@ const ChatAi = () => {
       const transcript = event.results[0][0].transcript;
       setInput(transcript);
     };
-
-    recognitionRef.current.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-      setListening(false);
-    };
-
-    recognitionRef.current.onend = () => {
-      setListening(false);
-    };
-
+    recognitionRef.current.onerror = () => setListening(false);
+    recognitionRef.current.onend = () => setListening(false);
     recognitionRef.current.start();
     setListening(true);
   };
 
   return (
     <>
-      {/* Floating AI Chat button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2 bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-700 hover:to-indigo-700 transition"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2 bg-gradient-to-tr from-green-600 to-blue-600 text-white font-semibold rounded-full shadow-lg hover:from-green-700 hover:to-blue-700 transition"
+          aria-label="Open AI Chat"
         >
           <FiMessageCircle className="w-5 h-5" /> AI Chat
         </button>
       )}
 
-      {/* Chat panel */}
       {open && (
-        <div className="fixed top-0 right-0 h-[88%] mt-16 mb-4 w-[380px] md:w-[420px] bg-gradient-to-br from-white via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-950 dark:to-black shadow-2xl z-50 flex flex-col rounded-l-2xl">
+        <div className="fixed top-0 right-0 h-[88%] mt-16 mb-4 w-[380px] md:w-[420px] bg-gradient-to-br from-green-50 via-blue-50 to-green-100 dark:from-gray-900 dark:via-gray-950 dark:to-black shadow-2xl z-50 flex flex-col rounded-l-2xl">
           {/* Header */}
           <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
-            <h2 className="text-xl font-bold text-blue-600 dark:text-indigo-400">
+            <h2 className="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-600 via-blue-700 to-indigo-800 dark:from-green-400 dark:via-blue-400 dark:to-indigo-500">
               💬 Chat with AI
             </h2>
             <button
               onClick={() => setOpen(false)}
-              className="text-gray-500 hover:text-red-500 transition"
+              className="text-gray-600 dark:text-gray-400 hover:text-red-500 transition"
+              aria-label="Close chat panel"
             >
               <FiX className="w-6 h-6" />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-3">
+          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
             {messages.length === 0 && !loading && (
-              <div className="text-gray-400 dark:text-gray-500 text-center italic select-none mt-10">
+              <div className="text-gray-500 dark:text-gray-600 text-center italic select-none mt-10">
                 Start a conversation with the AI 🤖
               </div>
             )}
@@ -188,37 +463,35 @@ const ChatAi = () => {
                 key={idx}
                 className={`flex ${
                   msg.role === "user" ? "justify-end" : "justify-start"
-                } mb-3`}
+                }`}
               >
                 <div
-                  className={`relative p-3 rounded-2xl shadow max-w-[80%] whitespace-pre-line break-words text-sm ${
+                  className={`relative p-4 rounded-2xl shadow max-w-[80%] whitespace-pre-line break-words text-sm transition-all ${
                     msg.role === "user"
-                      ? "bg-gradient-to-tr from-blue-600 to-indigo-500 text-white rounded-br-md"
-                      : "bg-white/90 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 rounded-bl-md border border-gray-100 dark:border-gray-700"
+                      ? "bg-gradient-to-tr from-green-600 via-blue-600 to-indigo-700 text-white rounded-br-md border border-blue-400"
+                      : "bg-white/95 dark:bg-gray-900/90 text-green-900 dark:text-blue-300 rounded-bl-md border border-green-300 dark:border-blue-600"
                   }`}
                 >
-					
-                  {/* Copy button */}
                   <button
                     onClick={() => handleCopy(msg.content, idx)}
-                    className="absolute top-2 right-3 text-xs text-gray-400 hover:text-blue-500"
+                    className="absolute top-2 right-3 text-xs text-green-500 hover:text-blue-500 transition focus:outline-none"
+                    aria-label="Copy message"
+                    tabIndex={0}
                   >
                     {copiedIdx === idx ? <FiCheck /> : <FiCopy />}
                   </button>
 
-                  {/* 🔊 Voice button only for AI responses */}
                   {msg.role === "ai" && (
-					<div className="h-1 w-1">
                     <button
                       onClick={() => handleSpeak(msg.content, idx)}
-                      className="absolute  top-2 right-10 text-xs text-gray-400 hover:text-green-500"
+                      className="absolute top-2 right-10 text-xs text-green-500 hover:text-blue-500 transition"
+                      aria-label="Play AI speech"
                     >
                       {speakingIdx === idx ? <FiVolumeX /> : <FiVolume2 />}
                     </button>
-					</div>
                   )}
 
-                  <span className="block text-xs opacity-60 mb-1 font-semibold">
+                  <span className="block text-xs opacity-75 mb-1 font-semibold select-none">
                     {msg.role === "user" ? "You" : "AI"}
                   </span>
                   {renderWithBold(msg.content)}
@@ -227,32 +500,31 @@ const ChatAi = () => {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-3 py-2 rounded-2xl shadow animate-pulse w-32 text-xs">
+                <div className="bg-green-200 dark:bg-blue-900 text-green-700 dark:text-blue-400 px-3 py-2 rounded-2xl shadow animate-pulse w-32 text-xs">
                   ⏳ AI is typing...
                 </div>
               </div>
             )}
-            <div ref={chatEndRef}></div>
+            <div ref={chatEndRef} />
           </div>
 
           {/* Input */}
           <div className="p-3 border-t dark:border-gray-700 flex gap-2 items-center">
             <textarea
               rows={1}
-              className="flex-1 resize-none p-2 bg-white/90 dark:bg-gray-800/80 border rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+              className="flex-1 resize-none p-2 bg-white/90 dark:bg-gray-800/80 border border-green-300 dark:border-blue-600 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-green-500 text-sm text-green-900 dark:text-blue-300 placeholder-green-600 dark:placeholder-blue-400"
               placeholder="Ask me anything..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={loading}
             />
-            {/* 🎤 Mic button */}
             <button
               onClick={handleVoiceInput}
               className={`p-2 rounded-full shadow ${
                 listening
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                  ? "bg-green-600 text-white"
+                  : "bg-green-200 dark:bg-blue-700 text-green-600 dark:text-blue-300"
               }`}
               title="Speak your question"
             >
@@ -264,7 +536,7 @@ const ChatAi = () => {
               className={`px-4 py-2 rounded-xl font-semibold transition shadow text-sm ${
                 loading || !input.trim()
                   ? "bg-gray-300 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-tr from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                  : "bg-gradient-to-tr from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
               }`}
             >
               {loading ? "..." : "Send"}
