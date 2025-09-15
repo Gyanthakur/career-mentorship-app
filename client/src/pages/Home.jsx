@@ -6,6 +6,7 @@ import Roadmap from '../roadmap/page'
 import RoadmapPage from '../components/RoadmapPage'
 import ExpertsPlatform from './ExpertsPlatform'
 import ServicesPage from './Services'
+import AIChat from '../components/AIChat'
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       {/* <SkillsPage/> */}
       <RoadmapPage/>
       <Roadmap/>
+      <AIChat />
     </div>
   )
 }
