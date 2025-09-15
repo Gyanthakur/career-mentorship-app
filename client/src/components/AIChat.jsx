@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { FiCopy, FiCheck, FiX, FiMessageCircle } from "react-icons/fi";
+import { AppContext } from "../context/AppContext";
 
 // Bold text rendering
 function renderWithBold(str) {
@@ -16,6 +17,9 @@ function renderWithBold(str) {
 }
 
 const ChatAi = () => {
+
+    const {backendUrl} = useContext(AppContext)
+
 	const [open, setOpen] = useState(false);
 	const [input, setInput] = useState("");
 	const [messages, setMessages] = useState([]);
@@ -52,7 +56,7 @@ const ChatAi = () => {
 		setLoading(true);
 
 		try {
-			const res = await axios.post("http://localhost:4000/api/chat", {
+			const res = await axios.post(backendUrl + "/api/chat", {
 				message: input,
 			});
 			const aiMessage = { role: "ai", content: res.data.reply };
