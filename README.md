@@ -180,24 +180,6 @@ npm run dev
 Now open [http://localhost:5173](http://localhost:5173) 🎉
 
 ---
-## 📸 Screenshots
-
-| #  | Screenshot | Preview |
-|----|------------|---------|
-| 1  | Header | <img width="1915" height="869" alt="header" src="https://github.com/user-attachments/assets/79860790-19a0-49b8-9bca-c23ce765d243" /> |
-| 2  | Skills Available | <img width="1919" height="869" alt="skills aval" src="https://github.com/user-attachments/assets/634a4e2a-63c6-414c-b9b8-63c8f69049d6" /> |
-| 3  | Services | <img width="1919" height="866" alt="services" src="https://github.com/user-attachments/assets/e4403f4f-aa6b-4d85-851d-5e46b6132b29" /> |
-| 4  | Skill Section | <img width="1919" height="871" alt="skill" src="https://github.com/user-attachments/assets/1c2e5b5e-d26f-40a7-b8ba-7866724f9e86" /> |
-| 5  | Learning Roadmap | <img width="1919" height="880" alt="Learning Roadmap" src="https://github.com/user-attachments/assets/abfa727c-0693-43e5-9556-bb9353e10263" /> |
-| 6  | Developer Roadmap | <img width="1919" height="873" alt="Developer Roadmap" src="https://github.com/user-attachments/assets/3cda66fa-4791-44af-be11-5e8f638df212" /> |
-| 7  | Download Roadmap | <img width="1919" height="874" alt="Download Roadmap" src="https://github.com/user-attachments/assets/ee07802b-d3eb-43b5-b924-20af39444a72" /> |
-| 8  | Chart | <img width="1919" height="869" alt="Chart" src="https://github.com/user-attachments/assets/f8e6e27a-4d72-469f-981e-dfdce742be93" /> |
-| 9  | About Page | <img width="1919" height="870" alt="About" src="https://github.com/user-attachments/assets/58954d34-3841-415d-8a14-97f9e0c077d6" /> |
-| 10 | Our Core Values | <img width="1919" height="871" alt="Our Core Values" src="https://github.com/user-attachments/assets/3da599be-9df5-42e7-b8ce-244a13dbf43e" /> |
-| 11 | Footer | <img width="1916" height="871" alt="Footer" src="https://github.com/user-attachments/assets/d20f501b-e67f-4a67-97f5-beff89efb3a1" /> |
-
-
-
 ## 📸 Screenshots  
 
 | Header | Skills Available |
