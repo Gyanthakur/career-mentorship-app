@@ -52,7 +52,7 @@ jobs:
           # Use GitHub secrets (set in repo settings)
           apisec-username: ${{ secrets.APISEC_USERNAME }}
           apisec-password: ${{ secrets.APISEC_PASSWORD }}
-          apisec-project: "VAmPI"
+          apisec-project: "CareerMentorshipApp"
           sarif-result-file: "apisec-results.sarif"
 
       - name: Import results
