@@ -76,10 +76,10 @@ export const chatWithAI = async (req, res) => {
 
 import Groq from "groq-sdk";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export const chatWithAI = async (req, res) => {
   try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     const { message } = req.body;
     const completion = await groq.chat.completions.create({
       model: "llama-3.1-8b-instant",
